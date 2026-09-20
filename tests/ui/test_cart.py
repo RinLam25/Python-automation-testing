@@ -9,3 +9,13 @@ def test_them_san_pham_vao_gio(page):
 
     assert "view_cart" in page.url
     assert page.is_visible("text=Shopping Cart")
+
+def test_xoa_san_pham_khoi_gio(page):
+    """Kiểm tra sản phẩm biến mất khỏi giỏ hàng sau khi bấm nút xóa."""
+    cart_page = CartPage(page)
+    cart_page.mo_trang_san_pham()
+    cart_page.them_san_pham_dau_tien_vao_gio()
+    cart_page.xem_gio_hang()
+    cart_page.xoa_san_pham_khoi_gio()
+
+    assert page.is_visible("text=Cart is empty!")

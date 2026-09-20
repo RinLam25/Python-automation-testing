@@ -14,4 +14,12 @@ def test_dang_ky_thanh_cong(page):
     signup_page.dang_ky("Rin Test", email_ngau_nhien)
 
     assert "signup" in page.url
+
+def test_dang_ky_email_da_co(page):
+    """Kiểm tra hệ thống báo lỗi đúng khi đăng ký bằng email đã có sẵn."""
+    signup_page = SignupPage(page)
+    signup_page.mo_trang_login()
+    signup_page.dang_ky("minhanhtran", "minhanh@gmail.com")
+
+    assert page.is_visible("text=Email Address already exist!")
   

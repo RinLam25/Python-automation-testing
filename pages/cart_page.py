@@ -12,3 +12,10 @@ class CartPage:
 
     def xem_gio_hang(self):
         self.page.click("text=View Cart", force=True)
+
+    def xoa_san_pham_khoi_gio(self):
+        nut_xoa = self.page.locator(".cart_quantity_delete")
+        nut_xoa.scroll_into_view_if_needed()   # ✏️ chủ động cuộn tới, không phó mặc cho click tự lo
+        self.page.wait_for_timeout(500)
+        nut_xoa.click(force=True)
+        self.page.wait_for_timeout(1000)
