@@ -23,3 +23,13 @@ def test_dang_ky_email_da_co(page):
 
     assert page.is_visible("text=Email Address already exist!")
   
+def test_dang_ky_thieu_ten(page):
+    """Kiểm tra không thể đăng ký khi bỏ trống trường Name (validation required)."""
+    signup_page = SignupPage(page)
+    signup_page.mo_trang_login()
+
+    email_ngau_nhien = f"rin{int(time.time())}@gmail.com"
+    signup_page.dang_ky("", "minhanh@gmail.com")   # ✏️ truyền chuỗi rỗng vào "ten"
+
+    assert "login" in page.url
+

@@ -2,6 +2,7 @@ from pages.cart_page import CartPage
 
 
 def test_them_san_pham_vao_gio(page):
+    """Kiểm tra thêm sản phẩm vào giỏ hàng thành công."""
     cart_page = CartPage(page)
     cart_page.mo_trang_san_pham()
     cart_page.them_san_pham_dau_tien_vao_gio()

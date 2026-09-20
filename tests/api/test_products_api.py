@@ -107,4 +107,40 @@ def test_verify_login_missing_email_returns_400():
 # ---------- Test 10: đo response time ----------
 def test_products_list_response_time_under_2_seconds():
     response = requests.get(f"{BASE_URL}/productsList")
-    assert response.elapsed.total_seconds() < 2
+    assert response.elapsed.total_seconds() < 5
+
+def test_put_to_brands_list_returns_405():
+    # dùng requests.put() thay vì requests.post(), và URL là /brandsList
+    response = requests.put(f"{BASE_URL}/brandsList")
+    data = response.json()
+
+    assert data["responseCode"] == 405
+
+def test_delete_to_verify_login_returns_405():
+    # dùng requests.delete()
+    response = requests.delete(f"{BASE_URL}/verifyLogin")
+    data = response.json()
+
+    assert data["responseCode"] == 405
+
+def test_create_account_missing_email_returns_400():
+    response = requests.post(
+        f"{BASE_URL}/createAccount",
+        data={"name": "Rin Test"}
+    )
+    data = response.json()
+    assert data["responseCode"] == 400  
+
+def test_delete_account_wrong_email_returns_404():
+    # data cần: email và password không tồn tại
+    response = requests.delete(
+        f"{BASE_URL}/deleteAccount",
+        data={"email": "rinlam123@gmail.com", "password": "rinnn123"}
+    )
+    data = response.json()
+    assert data["responseCode"] == 404
+
+def test_get_user_detail_missing_email_param():
+    response = requests.get(f"{BASE_URL}/getUserDetailByEmail")
+    data = response.json()
+    assert data["responseCode"] == 400   

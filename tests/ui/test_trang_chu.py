@@ -1,6 +1,7 @@
 from pages.home_page import HomePage
 
 def test_trang_chu(page):
+    """Kiểm tra trang chủ load đúng, tiêu đề trang chính xác."""
     # 🔒 "page" là tham số bắt buộc viết đúng tên — pytest-playwright tự "tặng" công cụ này
     # giống hệt cách "mocker" hoạt động
 
@@ -13,7 +14,9 @@ def test_trang_chu(page):
     # ✏️ chuỗi so sánh "Automation Exercise" 
 
 def test_click_products(page):
+    """Kiểm tra click vào menu Products điều hướng đúng trang."""
     page.goto("https://automationexercise.com")
+    page.wait_for_timeout(1000)
     page.keyboard.press("Escape")
 
     # dòng code để click vào "Products" 
@@ -27,7 +30,7 @@ def test_click_products(page):
     assert "products" in page.url
 
 def test_dung_page_object(page):
-    
+    """Kiểm tra luồng mở trang + click Products hoạt động đúng qua Page Object Model."""
     #Lưu ý: test này có thể fail ngẫu nhiên (~20%) do quảng cáo Google Vignette 
     #tự động xuất hiện trên trang demo, không phải lỗi logic. 
     #Đã xử lý giảm thiểu bằng wait_for_timeout + Escape + force click.
