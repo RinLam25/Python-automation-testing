@@ -46,3 +46,35 @@ def test_get_products_safely_handles_network_error(mocker):
     result = get_products_safely()
 
     assert result == []
+
+def check_inventory():
+    """Hàm giả lập: gọi API kiểm tra tồn kho, trả về True nếu còn hàng, False nếu hết"""
+    try:
+        response = requests.get("https://vidu.com/api/tonkho")
+        if response.status_code == 200:
+            data = response.json()
+            return data["so_luong"] > 0
+        return False
+    except requests.exceptions.RequestException:
+        return False
+
+def test_kiem_tra_ton_kho_con_hang(mocker):
+    mock_response = mocker.Mock()
+    mock_response.status_code = 200
+    mock_response.json.return_value = {"so_luong": 10}
+    mocker.patch("requests.get", return_value = mock_response )
+    result = check_inventory()
+    assert result == True
+
+def test_kiem_tra_ton_kho_het_hang(mocker):
+    mock_response = mocker.Mock()
+    mock_response.status_code = 200
+    mock_response.json.return_value = {"so_luong": 0}
+    mocker.patch("requests.get", return_value = mock_response )
+    result = check_inventory()
+    assert result == False
+
+def test_mat_mang(mocker):
+    mocker.patch("requests.get", side_effect = requests.exceptions.ConnectionError)
+    result = check_inventory()
+    assert result == False
