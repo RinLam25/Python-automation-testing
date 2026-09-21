@@ -1,7 +1,6 @@
 import pandas as pd
 from scipy.stats import chi2_contingency
 
-# Bảng dữ liệu THẬT từ project — đếm từ 30 test negative/edge case
 # API: 4 Critical, 8 Major, 9 Minor
 # UI:  1 Critical, 1 Major, 7 Minor
 contingency_table = pd.DataFrame(
