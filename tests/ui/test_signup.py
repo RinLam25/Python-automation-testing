@@ -33,3 +33,12 @@ def test_dang_ky_thieu_ten(page):
 
     assert "login" in page.url
 
+def test_dang_ky_ten_qua_dai(page):
+    """Kiểm tra đăng ký với tên cực dài (200 ký tự) không làm hệ thống crash."""
+    signup_page = SignupPage(page)
+    signup_page.mo_trang_login()
+
+    ten_dai = "A" * 200
+    email_ngau_nhien = f"rin{int(time.time())}@gmail.com"
+    signup_page.dang_ky(ten_dai, email_ngau_nhien)
+

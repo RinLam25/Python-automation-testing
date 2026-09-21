@@ -20,3 +20,13 @@ def test_xoa_san_pham_khoi_gio(page):
     cart_page.xoa_san_pham_khoi_gio()
 
     assert page.is_visible("text=Cart is empty!")
+
+def test_them_san_pham_khac_vao_gio(page):
+    """Kiểm tra thêm sản phẩm thứ 2 vào giỏ hàng thành công."""
+    cart_page = CartPage(page)
+    cart_page.mo_trang_san_pham()
+    page.click('a[data-product-id="2"]', force=True)
+    page.wait_for_timeout(1000)
+    cart_page.xem_gio_hang()
+
+    assert "view_cart" in page.url

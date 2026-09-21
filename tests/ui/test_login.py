@@ -24,3 +24,12 @@ def test_dang_nhap_thieu_password(page):
     login_page.dang_nhap("minhanh@gmail.com", "")
 
     assert "login" in page.url
+
+def test_dang_nhap_email_khong_hop_le(page):
+    """Kiểm tra đăng nhập với email sai định dạng."""
+    login_page = LoginPage(page)
+    login_page.mo_trang()
+    login_page.dang_nhap("lamtherinnnnn", "123456")
+
+    assert "login" in page.url
+
